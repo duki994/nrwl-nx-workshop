@@ -10,8 +10,19 @@ import { StoreUiSharedModule } from '@bg-hoard/store/ui-shared';
   imports: [
     MatCardModule,
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabledBlocking' }),
-    StoreUiSharedModule
+    RouterModule.forRoot(
+      [
+        {
+          path: 'game/:id',
+          loadChildren: () =>
+            import('@bg-hoard/store/feature-game-detail').then(
+              (module) => module.StoreFeatureGameDetailModule
+            ),
+        },
+      ],
+      { initialNavigation: 'enabledBlocking' }
+    ),
+    StoreUiSharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -3,6 +3,10 @@ import { libraryGenerator } from '@nrwl/workspace/generators';
 
 type LibrarySchema = Parameters<typeof libraryGenerator>[1];
 
+interface Schema extends LibrarySchema {
+  directory: string;
+}
+
 const checkNameHasUtil = (name: string) => name?.includes('util') ?? false;
 
 const mergeTags = (existingTags?: string, newTags?: string) => {
@@ -12,12 +16,12 @@ const mergeTags = (existingTags?: string, newTags?: string) => {
   }
 };
 
-export default async function (host: Tree, schema: LibrarySchema) {
+export default async function (host: Tree, schema: Schema) {
   const name = checkNameHasUtil(schema.name)
     ? schema.name
     : `util-${schema.name}`;
 
-  await libraryGenerator(host, { ...schema, name, tags: mergeTags(schema.tags, 'type:util') });
+  await libraryGenerator(host, { ...schema, name, tags: mergeTags(schema.tags, `type:util,scope:${schema.directory}`) });
   await formatFiles(host);
   return () => {
     installPackagesTask(host);

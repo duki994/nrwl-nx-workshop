@@ -12,7 +12,7 @@ const checkNameHasUtil = (name: string) => name?.includes('util') ?? false;
 const mergeTags = (existingTags?: string, newTags?: string) => {
   const trimmed = existingTags?.trim();
   if (trimmed && newTags) {
-    return `${trimmed},${newTags}`;
+    return `${trimmed},${newTags}`.trim();
   }
 };
 
@@ -21,7 +21,7 @@ export default async function (host: Tree, schema: Schema) {
     ? schema.name
     : `util-${schema.name}`;
 
-  await libraryGenerator(host, { ...schema, name, tags: mergeTags(schema.tags, `type:util,scope:${schema.directory}`) });
+  await libraryGenerator(host, { ...schema, name, tags: mergeTags(schema.tags, `scope:${schema.directory},type:util`) });
   await formatFiles(host);
   return () => {
     installPackagesTask(host);

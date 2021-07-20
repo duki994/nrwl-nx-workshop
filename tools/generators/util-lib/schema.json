@@ -19,16 +19,16 @@
         "type": "list",
         "items": [
           {
-            "value": "store",
-            "label": "store"
-          },
-          {
             "value": "api",
             "label": "api"
           },
           {
             "value": "shared",
             "label": "shared"
+          },
+          {
+            "value": "store",
+            "label": "store"
           }
         ]
       }

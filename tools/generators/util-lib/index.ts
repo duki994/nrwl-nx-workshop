@@ -3,7 +3,9 @@ import { libraryGenerator } from '@nrwl/workspace/generators';
 
 type LibrarySchema = Parameters<typeof libraryGenerator>[1];
 
-interface Schema extends LibrarySchema {
+interface Schema {
+  name: string;
+  tags?: string;
   directory: string;
 }
 

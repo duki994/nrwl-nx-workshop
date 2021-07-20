@@ -1,8 +1,6 @@
 import { Tree, formatFiles, installPackagesTask } from '@nrwl/devkit';
 import { libraryGenerator } from '@nrwl/workspace/generators';
 
-type LibrarySchema = Parameters<typeof libraryGenerator>[1];
-
 interface Schema {
   name: string;
   tags?: string;

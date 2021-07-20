@@ -29,7 +29,7 @@ export default async function (host: Tree, schema: Schema) {
     ? schema.name
     : `util-${sanitizeName(schema.name)}`;
 
-  const libScheme: LibrarySchema = {
+  const libScheme: Schema = {
     ...schema,
     name,
     tags: mergeTags(schema.tags, `scope:${schema.directory},type:util`),

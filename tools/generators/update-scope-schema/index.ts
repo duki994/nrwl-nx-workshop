@@ -45,21 +45,22 @@ function updateUtilLibSchemaJson(host: Tree, scopes: Iterable<string>) {
 function joinScopes(scopes: Iterable<string>) {
   let str = ``;
   for (const scope of scopes) {
-    str += `${scope},`
+    str += str === '' ? `'${scope}' |` : ` '${scope}' |`;
   }
-  return str.substring(0, str.length - 1);
+  return str.substring(0, str.length - 2);
 }
 
 function updateUtilLibSchemaInterface(host: Tree, scopes: Iterable<string>) {
-  const PATTERN = /interface Schema \{\n.*\n.*\n\}/;
+  const PATTERN = /interface Schema \{\r*\n(?:.*[\;,]\r*\n)*\}{1}/gm;
   const index = host.read(utilLibIndexTsPath, 'utf-8');
-  index.replace(PATTERN,
+  const replaced = index.replace(PATTERN,
     `interface Schema {
       name: string;
+      tags?: string;
       directory: ${joinScopes(scopes)}
     }`);
 
-  host.write(utilLibIndexTsPath, index);
+  host.write(utilLibIndexTsPath, replaced);
 };
 
 

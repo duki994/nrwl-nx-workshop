@@ -4,7 +4,7 @@ import { libraryGenerator } from '@nrwl/workspace/generators';
 interface Schema {
   name: string;
   tags?: string;
-  directory: string;
+  directory: 'api' | 'store' | 'shared';
 }
 
 const checkNameHasUtil = (name: string) => name?.includes('util') ?? false;

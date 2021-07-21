@@ -162,6 +162,18 @@
             "jestConfig": "apps/store/jest.config.js",
             "passWithNoTests": true
           }
+        },
+        "windows-deploy":{
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npx surge dist/apps/store %SURGE_DOMAIN_STORE% --token %SURGE_TOKEN%"
+          }
+        },
+        "deploy":{
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npx surge dist/apps/store ${SURGE_DOMAIN_STORE} --token ${SURGE_TOKEN}"
+          }
         }
       }
     },
